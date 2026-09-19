@@ -1,0 +1,6 @@
+Put your CV/resume PDF in this folder and name it exactly:
+
+Muhammad-Hanan-CV.pdf
+
+Then delete this text file. The "Download CV" buttons on the site
+already point to this exact filename, so nothing else needs to change.

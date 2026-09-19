@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lahore Urban Heat &amp; Vegetation Analysis — Muhammad Hanan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  /* This page has no 3D globe behind it, so we give it a plain
+     background instead of the semi-transparent "floating over canvas" look. */
+  body { background: var(--paper); }
+  .project__inner { background: var(--paper-2); }
+</style>
+</head>
+<body>
+
+<header class="detail-header">
+  <a href="index.html" class="detail-header__back">← Back to portfolio</a>
+</header>
+
+<main>
+  <section class="section project" style="min-height:auto; padding-top:2rem;">
+    <div class="panel__inner project__inner" style="max-width:780px;">
+      <p class="project__tools">Google Earth Engine + QGIS</p>
+      <h1 class="project__title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Lahore Urban Heat &amp; Vegetation Analysis</h1>
+      <p class="project__desc">
+        This project maps how vegetation cover and land surface temperature relate across Lahore.
+        Using Sentinel-2 vegetation indices and Landsat thermal data, the workflow locates the parts
+        of the city where heat builds up most and where vegetation is doing the most to keep it down.
+      </p>
+
+      <img class="project__thumb lightbox-trigger" style="max-width:100%;"
+           src="assets/img/lahore-heat-hotspots-2025.jpg"
+           alt="Lahore Urban Heat Hotspots 2025 — final map output" loading="lazy" />
+      <p class="project__caption">Final output map — click to view full size.</p>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2.5rem;">Workflow</h3>
+      <div class="pipeline">
+        <div class="pipeline__step"><span>Satellite Data</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>NDVI</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Landsat LST</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>NDBI</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step pipeline__step--final"><span>Urban Heat Hotspots</span></div>
+      </div>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2.5rem;">Key findings</h3>
+      <div class="stats">
+        <div class="stats__item"><span class="stats__value">0.335</span><span class="stats__label">Mean NDVI (Sentinel-2)</span></div>
+        <div class="stats__item"><span class="stats__value">41.16°C</span><span class="stats__label">Mean LST</span></div>
+        <div class="stats__item"><span class="stats__value">197.85 km²</span><span class="stats__label">Extreme urban heat hotspot area</span></div>
+        <div class="stats__item"><span class="stats__value">537.07 km²</span><span class="stats__label">Hot + low-vegetation area</span></div>
+        <div class="stats__item"><span class="stats__value">~3.39°C</span><span class="stats__label">Temp. difference, low vs. high vegetation</span></div>
+        <div class="stats__item"><span class="stats__value">0.0021</span><span class="stats__label">Mean NDBI</span></div>
+      </div>
+
+      <div class="substats">
+        <p><strong>LST range —</strong> 29.07°C (min) to 54.28°C (max)</p>
+        <p><strong>Vegetation area —</strong> Low: 451.16 km² · Moderate: 915.41 km² · High: 317.75 km²</p>
+        <p><strong>Avg. LST by vegetation class —</strong> Low: 42.28°C · Moderate: 40.78°C · High: 38.89°C</p>
+      </div>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2.5rem;">Methodology</h3>
+      <p class="project__body" style="color:var(--ink-soft);">
+        Sentinel-2 and Landsat imagery (Level-2, harmonized surface reflectance) were processed in
+        Google Earth Engine to derive NDVI, NDBI, and land surface temperature. Hotspots were flagged
+        where LST exceeded 40°C, NDVI was below 0.2, and NDBI was above 0.1 — isolating built-up,
+        low-vegetation areas carrying the most heat. Sentinel-2 data was used at 10 m resolution and
+        Landsat at 30 m, with a final output resolution of 30 m in WGS 84 (EPSG:4326).
+      </p>
+
+      <a href="index.html#projects" class="btn btn--outline">← Back to all projects</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Muhammad Hanan</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+  // Minimal lightbox for this standalone page (same pattern as main.js)
+  document.querySelectorAll(".lightbox-trigger").forEach((img) => {
+    img.addEventListener("click", () => window.open(img.src, "_blank"));
+  });
+</script>
+</body>
+</html>

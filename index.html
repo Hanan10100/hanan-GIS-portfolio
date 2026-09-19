@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Muhammad Hanan — GIS × GeoAI</title>
+<meta name="description" content="Muhammad Hanan — GIS student specializing in remote sensing, spatial analysis and GeoAI." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============ THE GLOBE (fixed background, present the whole time) ============ -->
+<canvas id="globe-canvas"></canvas>
+<div id="globe-loading">Loading Earth…</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <a href="#hero" class="nav__brand">M. Hanan</a>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav__links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#other-work">Other Work</a>
+    <a href="#contact">Contact</a>
+    <a href="assets/cv/Muhammad-Hanan-CV.pdf" class="nav__cv" target="_blank" rel="noopener">Download CV</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="section hero" data-scene="space">
+    <div class="hero__content">
+      <p class="hero__kicker">GIS · Remote Sensing · GeoAI</p>
+      <h1 class="hero__name">Muhammad Hanan</h1>
+      <p class="hero__line">I turn spatial data into insight.</p>
+      <a href="#about" class="btn btn--ghost">Scroll to explore</a>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section panel panel--right" data-scene="pakistan">
+    <div class="panel__inner panel__inner--about">
+      <img
+        class="about__photo"
+        src="assets/img/hanan-portrait.jpg"
+        alt="Portrait of Muhammad Hanan"
+        width="420" height="580"
+      />
+      <div>
+        <p class="eyebrow">About</p>
+        <p class="panel__lead">
+          I'm a Geographic Information Systems student at the University of the Punjab, Lahore,
+          with a growing focus on remote sensing, spatial analysis, and GeoAI.
+        </p>
+        <p class="panel__body">
+          I work with geospatial data to understand real-world problems and turn complex spatial
+          information into clear maps and analytical insight. My work so far spans satellite image
+          analysis, land use and land cover classification, environmental analysis, cartography, and
+          Google Earth Engine workflows.
+        </p>
+        <p class="panel__body">
+          I'm continuing to build my skills in Python and geospatial technology, working toward
+          combining GIS and artificial intelligence into practical, data-driven solutions for
+          real-world challenges.
+        </p>
+
+        <div class="facts">
+          <div class="facts__item">
+            <span class="facts__label">Education</span>
+            <span class="facts__value">BS Geographic Information Systems<br>University of the Punjab, Lahore — 2024–2028 (4th semester)</span>
+          </div>
+          <div class="facts__item">
+            <span class="facts__label">Direction</span>
+            <span class="facts__value">GIS → Remote Sensing → Spatial Analysis → GeoAI</span>
+          </div>
+          <div class="facts__item">
+            <span class="facts__label">Based in</span>
+            <span class="facts__value">Shorkot City, Punjab, Pakistan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills" class="section panel panel--left" data-scene="lahore-wide">
+    <div class="panel__inner">
+      <p class="eyebrow">Skills</p>
+      <p class="panel__lead">What I work with, day to day.</p>
+
+      <div class="skillgroups">
+        <div class="skillgroup">
+          <h3>GIS &amp; Spatial Analysis</h3>
+          <ul class="tags">
+            <li>GIS</li><li>Spatial Analysis</li><li>Geospatial Data Processing</li>
+            <li>Cartography</li><li>Georeferencing</li><li>Digitization</li>
+            <li>Raster Analysis</li><li>Vector Analysis</li>
+          </ul>
+        </div>
+        <div class="skillgroup">
+          <h3>Remote Sensing</h3>
+          <ul class="tags">
+            <li>Satellite Image Analysis</li><li>NDVI</li><li>LST</li><li>NDBI</li>
+            <li>LULC Classification</li><li>Supervised Classification</li>
+            <li>Unsupervised Classification</li><li>Random Forest</li>
+          </ul>
+        </div>
+        <div class="skillgroup">
+          <h3>Programming</h3>
+          <ul class="tags">
+            <li>Python Basics</li><li>Pandas</li><li>NumPy</li><li>Google Earth Engine</li>
+          </ul>
+        </div>
+        <div class="skillgroup">
+          <h3>Tools &amp; Data</h3>
+          <ul class="tags">
+            <li>QGIS</li><li>ArcMap</li><li>Google Earth Pro</li>
+            <li>Sentinel-2</li><li>Landsat</li><li>OpenStreetMap</li><li>DEM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section projects-intro" data-scene="lahore-close">
+    <div class="panel__inner">
+      <p class="eyebrow">Projects</p>
+      <p class="panel__lead">A few things I've mapped and measured.</p>
+    </div>
+  </section>
+
+  <!-- Project 1 -->
+  <section class="section project" data-scene="lahore-close">
+    <div class="panel__inner">
+      <p class="project__tools">Google Earth Engine + QGIS</p>
+      <h3 class="project__title">Lahore Urban Heat &amp; Vegetation Analysis</h3>
+      <p class="project__desc">
+        Mapping how vegetation cover and land surface temperature relate across Lahore, using
+        Sentinel-2 vegetation indices and Landsat thermal data to locate urban heat hotspots.
+      </p>
+
+      <div class="pipeline">
+        <div class="pipeline__step"><span>Satellite Data</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>NDVI</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Landsat LST</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>NDBI</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step pipeline__step--final"><span>Urban Heat Hotspots</span></div>
+      </div>
+
+      <div class="stats">
+        <div class="stats__item"><span class="stats__value">0.335</span><span class="stats__label">Mean NDVI (Sentinel-2)</span></div>
+        <div class="stats__item"><span class="stats__value">41.16°C</span><span class="stats__label">Mean LST (29.07–54.28°C range)</span></div>
+        <div class="stats__item"><span class="stats__value">197.85 km²</span><span class="stats__label">Extreme urban heat hotspot area</span></div>
+        <div class="stats__item"><span class="stats__value">537.07 km²</span><span class="stats__label">Hot + low-vegetation area</span></div>
+      </div>
+
+      <div class="substats">
+        <p><strong>Vegetation area —</strong> Low: 451.16 km² · Moderate: 915.41 km² · High: 317.75 km²</p>
+        <p><strong>Avg. LST by vegetation class —</strong> Low: 42.28°C · Moderate: 40.78°C · High: 38.89°C</p>
+        <p><strong>Mean NDBI —</strong> 0.0021</p>
+      </div>
+
+      <img
+        class="project__thumb lightbox-trigger"
+        src="assets/img/lahore-heat-hotspots-2025.jpg"
+        alt="Lahore Urban Heat Hotspots 2025 — final map output"
+        loading="lazy"
+      />
+      <p class="project__caption">Final map output — click to view full size.</p>
+
+      <a href="project-1.html" class="btn btn--outline">View full project →</a>
+    </div>
+  </section>
+
+  <!-- Project 2 -->
+  <section class="section project" data-scene="lahore-close">
+    <div class="panel__inner">
+      <p class="project__tools">Google Earth Engine + Sentinel-2 + Random Forest</p>
+      <h3 class="project__title">Land Use / Land Cover Classification</h3>
+      <p class="project__desc">
+        Classifying land cover from Sentinel-2 imagery using a Random Forest classifier trained
+        on labeled samples across five land cover classes.
+      </p>
+
+      <div class="pipeline">
+        <div class="pipeline__step"><span>Sentinel-2</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Training Data</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Random Forest</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step pipeline__step--final"><span>LULC Classification</span></div>
+      </div>
+
+      <ul class="tags tags--classes">
+        <li>Trees</li><li>Water</li><li>Built-up</li><li>Bareland</li><li>Grassland</li>
+      </ul>
+
+      <a href="project-2.html" class="btn btn--outline">View full project →</a>
+    </div>
+  </section>
+
+  <!-- Project 3 -->
+  <section class="section project" data-scene="islamabad">
+    <div class="panel__inner">
+      <p class="project__tools">QGIS + Sentinel-2 + SCP / Random Forest workflow</p>
+      <h3 class="project__title">Islamabad LULC Analysis</h3>
+      <p class="project__desc">
+        A QGIS-based classification workflow for Islamabad: training samples built from Sentinel-2
+        imagery, classified land cover, and supporting index analysis for water and built-up areas.
+      </p>
+      <ul class="tags">
+        <li>Sentinel-2 imagery</li><li>Training samples</li><li>Classification</li>
+        <li>NDVI</li><li>MNDWI</li><li>Built-up analysis</li><li>LULC mapping</li>
+      </ul>
+
+      <a href="project-3.html" class="btn btn--outline">View full project →</a>
+    </div>
+  </section>
+
+  <!-- Project 4 - COMING NEXT -->
+  <section class="section project project--upcoming" data-scene="lahore-close">
+    <div class="panel__inner">
+      <p class="badge badge--upcoming">Coming Next</p>
+      <h3 class="project__title">Lahore Urban Flood Risk &amp; Safe Route System</h3>
+      <p class="project__desc">
+        A planned project combining rainfall, elevation, drainage and land cover data to model
+        flood risk across Lahore, then generate safer travel routes around high-risk zones.
+      </p>
+
+      <div class="pipeline pipeline--muted">
+        <div class="pipeline__step"><span>Rainfall + DEM + Drainage + Land Cover + Roads</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Flood Risk</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step pipeline__step--final"><span>Safe Routes</span></div>
+      </div>
+
+      <a href="project-4.html" class="btn btn--outline">View full project →</a>
+    </div>
+  </section>
+
+  <!-- ============ OTHER WORK ============ -->
+  <section id="other-work" class="section panel panel--right" data-scene="space">
+    <div class="panel__inner">
+      <p class="eyebrow">Other Work</p>
+      <p class="panel__lead">Cartography &amp; Mapping</p>
+
+      <div class="gallery">
+        <figure class="gallery__item">
+          <img class="lightbox-trigger" src="assets/img/pakistan-elevation-map.jpg"
+               alt="Elevation map of Pakistan" loading="lazy" />
+          <figcaption>Elevation map of Pakistan, built from DEM data — terrain height from the Balochistan plateau to the northern peaks.</figcaption>
+        </figure>
+        <figure class="gallery__item">
+          <img class="lightbox-trigger" src="assets/img/gilgit-dem-terrain-analysis.jpg"
+               alt="DEM and terrain analysis of Gilgit-Baltistan: slope, aspect and hillshade maps" loading="lazy" />
+          <figcaption>DEM &amp; terrain analysis of Gilgit-Baltistan — slope, aspect, and hillshade derived from elevation data.</figcaption>
+        </figure>
+        <figure class="gallery__item">
+          <img class="lightbox-trigger" src="assets/img/gilgit-watershed-stream-map.jpg"
+               alt="Watershed and stream map of Gilgit-Baltistan" loading="lazy" />
+          <figcaption>Watershed &amp; stream network map of Gilgit-Baltistan, delineated from DEM hydrological analysis.</figcaption>
+        </figure>
+      </div>
+
+      <ul class="tags" style="margin-top:1.5rem;">
+        <li>KPK map</li><li>Thematic maps</li>
+        <li>Remote sensing outputs</li><li>Map design</li>
+      </ul>
+
+      <p class="panel__lead" style="margin-top:2.5rem;">Research</p>
+      <p class="panel__body">
+        "Integrating Artificial Intelligence with GIS for Land Use and Land Cover Classification:
+        A Comprehensive Review"
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact" data-scene="space">
+    <div class="panel__inner">
+      <p class="eyebrow">Contact</p>
+      <p class="panel__lead">Open to GIS internships, jobs, and freelance work.</p>
+
+      <div class="contact__list">
+        <a href="mailto:muhammadhanan10100@gmail.com" class="contact__item">muhammadhanan10100@gmail.com</a>
+        <a href="https://www.linkedin.com/in/muhammad-hanan-3a14b1298" target="_blank" rel="noopener" class="contact__item">LinkedIn</a>
+        <span class="contact__item">Shorkot City, Punjab, Pakistan</span>
+        <span class="contact__item">Urdu · English · Punjabi</span>
+      </div>
+
+      <a href="assets/cv/Muhammad-Hanan-CV.pdf" class="btn btn--ghost" style="margin-top:2rem;" target="_blank" rel="noopener">Download CV</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2026 Muhammad Hanan — built with HTML, CSS, JS &amp; Three.js</p>
+</footer>
+
+<!-- ============ LIGHTBOX (click any map image to view full size) ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="" />
+</div>
+
+<!-- Three.js as an ES module (modern, no build step needed) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module" src="js/globe.js"></script>
+
+<!-- GSAP for scroll-driven animation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

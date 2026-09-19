@@ -1,0 +1,469 @@
+/* =========================================================
+   DESIGN TOKENS — change your whole site's look from here
+   ========================================================= */
+:root {
+  --paper:       #EFEDE1;   /* main light background — "map paper" */
+  --paper-2:     #E4E0CE;   /* slightly deeper panel background */
+  --ink:         #1B2420;   /* main text color, on light backgrounds */
+  --ink-soft:    #4A5750;   /* secondary text on light backgrounds */
+
+  --forest:      #24402C;   /* primary brand green */
+  --forest-deep: #16261F;   /* dark section background */
+  --teal:        #1F6F78;   /* satellite / water accent */
+  --ochre:       #C08A3E;   /* single warm accent — use sparingly */
+
+  --paper-on-dark: #EDEFE6;
+  --line:        rgba(27, 36, 32, 0.14);
+  --line-on-dark: rgba(237, 239, 230, 0.16);
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body:    "Inter", sans-serif;
+
+  --max-width: 1160px;
+  --pad: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+p { margin: 0 0 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* =========================================================
+   THE GLOBE — fixed full-screen canvas behind everything
+   ========================================================= */
+#globe-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+#globe-loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  color: var(--paper-on-dark);
+  background: var(--forest-deep);
+  z-index: 1;
+  letter-spacing: 0.02em;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+#globe-loading.hidden { opacity: 0; }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem var(--pad);
+  mix-blend-mode: difference;
+}
+.nav__brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--paper-on-dark);
+}
+.nav__links { display: flex; align-items: center; gap: 2rem; }
+.nav__links a {
+  color: var(--paper-on-dark);
+  font-size: 0.95rem;
+}
+.nav__cv {
+  border: 1px solid var(--paper-on-dark);
+  border-radius: 999px;
+  padding: 0.4rem 1rem !important;
+  font-family: var(--font-display);
+  font-size: 0.85rem !important;
+}
+.nav__toggle { display: none; }
+
+@media (max-width: 720px) {
+  .nav__links {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 70vw;
+    background: var(--forest-deep);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    mix-blend-mode: normal;
+  }
+  .nav__links.open { transform: translateX(0); }
+  .nav__toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 21;
+  }
+  .nav__toggle span {
+    width: 22px; height: 2px;
+    background: var(--paper-on-dark);
+  }
+}
+
+/* =========================================================
+   LAYOUT — sections sit above the globe
+   ========================================================= */
+.section {
+  position: relative;
+  z-index: 2;
+  padding: 6rem var(--pad);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+.panel__inner {
+  max-width: 620px;
+  width: 100%;
+}
+.panel--right .panel__inner { margin-left: auto; }
+.panel--left  .panel__inner  { margin-right: auto; }
+
+/* Frosted card behind text so it stays readable over the 3D globe */
+.panel .panel__inner,
+.project .panel__inner,
+.contact .panel__inner,
+.projects-intro .panel__inner {
+  background: rgba(239, 237, 225, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: clamp(1.75rem, 4vw, 3rem);
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--teal);
+  margin-bottom: 0.75rem;
+}
+.panel__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 500;
+  color: var(--forest);
+  line-height: 1.3;
+}
+.panel__body { color: var(--ink-soft); max-width: 60ch; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
+}
+.hero__content { max-width: 560px; }
+.hero__kicker {
+  font-family: var(--font-display);
+  color: var(--teal);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  background: rgba(239, 237, 225, 0.85);
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+.hero__name {
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 700;
+  color: var(--forest);
+  line-height: 1.02;
+  text-shadow: 0 2px 24px rgba(239,237,225,0.6);
+}
+.hero__line {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--ink-soft);
+  margin: 1rem 0 2rem;
+  text-shadow: 0 2px 16px rgba(239,237,225,0.5);
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+.btn--ghost {
+  border: 1px solid var(--forest);
+  color: var(--forest);
+  background: rgba(239, 237, 225, 0.7);
+}
+.btn--ghost:hover { background: var(--forest); color: var(--paper-on-dark); }
+
+.btn--outline {
+  display: inline-block;
+  margin-top: 1.5rem;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  background: transparent;
+}
+.btn--outline:hover { background: var(--teal); color: var(--paper-on-dark); }
+
+/* =========================================================
+   ABOUT — photo + text side by side
+   ========================================================= */
+.panel__inner--about {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  align-items: start;
+  max-width: 780px;
+}
+.about__photo {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  aspect-ratio: 420 / 580;
+}
+@media (max-width: 640px) {
+  .panel__inner--about {
+    grid-template-columns: 1fr;
+  }
+  .about__photo { max-width: 220px; margin: 0 auto; }
+}
+
+/* =========================================================
+   PROJECT IMAGES + GALLERY
+   ========================================================= */
+.project__thumb {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  margin-top: 1rem;
+  cursor: zoom-in;
+}
+.project__caption {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.gallery__item { margin: 0; }
+.gallery__item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  cursor: zoom-in;
+  display: block;
+}
+.gallery__item figcaption {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   LIGHTBOX — click any map/photo to see it full size
+   ========================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(22, 38, 31, 0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 4px;
+}
+.lightbox__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--paper-on-dark);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* =========================================================
+   FACTS (About section)
+   ========================================================= */
+.facts { margin-top: 2rem; display: grid; gap: 1.25rem; }
+.facts__item { display: grid; gap: 0.15rem; }
+.facts__label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--teal);
+}
+.facts__value { color: var(--ink-soft); }
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+.skillgroups { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
+.skillgroup h3 {
+  font-size: 1rem;
+  color: var(--forest);
+  margin-bottom: 0.6rem;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tags li {
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+}
+.tags--classes li { border-color: var(--teal); color: var(--teal); }
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+.project__tools {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+.project__title {
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  color: var(--forest);
+  margin-bottom: 0.75rem;
+}
+.project__desc { color: var(--ink-soft); max-width: 60ch; }
+
+.pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.75rem 0;
+}
+.pipeline__step span {
+  display: inline-block;
+  background: var(--forest);
+  color: var(--paper-on-dark);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 4px;
+}
+.pipeline__step--final span { background: var(--ochre); }
+.pipeline__arrow { color: var(--ink-soft); }
+.pipeline--muted .pipeline__step span { background: var(--ink-soft); opacity: 0.6; }
+.pipeline--muted .pipeline__step--final span { background: var(--ink-soft); opacity: 0.6; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+.stats__value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--forest);
+}
+.stats__label { font-size: 0.8rem; color: var(--ink-soft); }
+
+.substats p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.4rem; }
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.badge--upcoming { background: var(--ochre); color: var(--forest-deep); }
+.project--upcoming .project__title { color: var(--ink-soft); }
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+.contact__list { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
+.contact__item {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--forest);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+  width: fit-content;
+}
+
+/* =========================================================
+   DETAIL PAGES (project-1.html etc.) — simple header, no globe
+   ========================================================= */
+.detail-header {
+  padding: 1.5rem var(--pad);
+}
+.detail-header__back {
+  font-family: var(--font-display);
+  color: var(--forest);
+  font-size: 0.95rem;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  background: var(--paper);
+}

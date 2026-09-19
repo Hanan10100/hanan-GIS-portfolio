@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Islamabad LULC Analysis — Muhammad Hanan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  body { background: var(--paper); }
+  .project__inner { background: var(--paper-2); }
+</style>
+</head>
+<body>
+
+<header class="detail-header">
+  <a href="index.html" class="detail-header__back">← Back to portfolio</a>
+</header>
+
+<main>
+  <section class="section project" style="min-height:auto; padding-top:2rem;">
+    <div class="panel__inner project__inner" style="max-width:780px;">
+      <p class="project__tools">QGIS + Sentinel-2 + SCP / Random Forest workflow</p>
+      <h1 class="project__title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Islamabad LULC Analysis</h1>
+      <p class="project__desc">
+        A QGIS-based land cover classification workflow for Islamabad, combining training samples,
+        classification, and index analysis to understand water extent and built-up growth in the city.
+      </p>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2rem;">What the workflow covered</h3>
+      <ul class="tags">
+        <li>Sentinel-2 imagery</li><li>Training samples</li><li>Classification</li>
+        <li>NDVI</li><li>MNDWI</li><li>Built-up analysis</li><li>LULC mapping</li>
+      </ul>
+
+      <p class="project__desc" style="margin-top:2rem; color:var(--ink-soft);">
+        Sentinel-2 imagery was classified in QGIS using the Semi-Automatic Classification Plugin /
+        Random Forest workflow, with NDVI and MNDWI computed alongside the classification to support
+        vegetation and water-extent interpretation, and a built-up analysis layered in to read urban
+        growth patterns across the city.
+      </p>
+
+      <a href="index.html#projects" class="btn btn--outline">← Back to all projects</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Muhammad Hanan</p>
+</footer>
+</body>
+</html>

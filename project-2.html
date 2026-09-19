@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Land Use / Land Cover Classification — Muhammad Hanan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  body { background: var(--paper); }
+  .project__inner { background: var(--paper-2); }
+</style>
+</head>
+<body>
+
+<header class="detail-header">
+  <a href="index.html" class="detail-header__back">← Back to portfolio</a>
+</header>
+
+<main>
+  <section class="section project" style="min-height:auto; padding-top:2rem;">
+    <div class="panel__inner project__inner" style="max-width:780px;">
+      <p class="project__tools">Google Earth Engine + Sentinel-2 + Random Forest</p>
+      <h1 class="project__title" style="font-size:clamp(1.8rem,4vw,2.6rem);">Land Use / Land Cover Classification</h1>
+      <p class="project__desc">
+        A supervised classification workflow that labels Sentinel-2 imagery into five land cover
+        classes using a Random Forest classifier trained on labeled sample points, built entirely
+        in Google Earth Engine.
+      </p>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2rem;">Workflow</h3>
+      <div class="pipeline">
+        <div class="pipeline__step"><span>Sentinel-2</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Training Data</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step"><span>Random Forest</span></div>
+        <div class="pipeline__arrow">→</div>
+        <div class="pipeline__step pipeline__step--final"><span>LULC Classification</span></div>
+      </div>
+
+      <h3 style="font-family:var(--font-display); color:var(--forest); margin-top:2rem;">Land cover classes</h3>
+      <ul class="tags tags--classes">
+        <li>Trees</li><li>Water</li><li>Built-up</li><li>Bareland</li><li>Grassland</li>
+      </ul>
+
+      <p class="project__desc" style="margin-top:2rem; color:var(--ink-soft);">
+        Training samples were digitized for each class and used to train a Random Forest classifier
+        directly on Sentinel-2 bands within Earth Engine, producing a classified land cover raster
+        across the study area.
+      </p>
+
+      <a href="index.html#projects" class="btn btn--outline">← Back to all projects</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Muhammad Hanan</p>
+</footer>
+</body>
+</html>
